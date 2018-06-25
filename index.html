@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./styles.css">
+	<title>pomodoro</title>
+</head>
+<body>
+	<h1>Pomodoro Clock</h1>
+	<h3>Session</h3>
+	<button onclick="changeProp(1,0)">/\</button>
+	<div class = "session">25</div>
+	<button onclick="changeProp(0,0)">\/</button>
+	<h3>Rest</h3>
+	<button onclick="changeProp(1,1)">/\</button>
+	<div class = "rest">5 </div>
+	<button onclick="changeProp(0,1)">\/</button>
+	<div class = "time"></div>
+	<button onclick="start()">Start</button>
+	<button onclick="#">Stop</button>
+	<button onclick="pause()">Pause</button>
+	<button onclick="stop()">Reset</button>
+	<script type="text/javascript" src="./main.js"></script>
+</body>
+</html>
