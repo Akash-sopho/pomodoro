@@ -2,13 +2,16 @@ var session = document.querySelector('.session');
 var rest = document.querySelector('.rest');
 var time = document.querySelector('.time');
 
-var play = false;
 var s_min = 25;
 var s_sec = 0;
+var r = 5;
+
 var minutes = 0;
 var seconds = 0;
-var r = 5;
+
+var play = false;
 var set_timer;
+var next = "rest";
 
 display(s_min,s_sec);
 
@@ -32,21 +35,34 @@ function changeProp(indec,sere) {
 	}
 }
 
-function start(e) {
+function start(min_inp, sec_inp) {
 	play = true;
 	var start_time = Date.now();
-	if (s_sec == 0) {
-		minutes = s_min - 1;
-		seconds = 59;
+	var tmpm = min_inp;
+	var tmps = 0;
+	if (sec_inp == 0) {
+		tmpm = min_inp;
+		tmps = 59;
 	}
 	else {
-		seconds = s_sec - 1;
+		tmps = sec_inp - 1;
 	}
 	function timer(e) {
 		var diff = ((Date.now() - start_time)/1000) | 0;
-		minutes = minutes  - ((diff/60) | 0);
-		seconds = seconds - ((diff%60) | 0);
+		minutes = tmpm  - ((diff/60) | 0);
+		seconds = tmps - ((diff%60) | 0);
 		display(minutes,seconds);
+		if (minutes == 0 && seconds == 0) {
+			clearInterval(set_timer);
+			if (next == "rest") {
+				next = "session"
+				start(parseInt(rest.innerText), 0);
+			}
+			else {
+				next = "rest";
+				start(parseInt(session.innerText), 0);
+			}
+		}
 	}
 	timer();
 	set_timer = setInterval(timer, 1000);
