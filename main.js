@@ -36,16 +36,16 @@ function start(e) {
 	play = true;
 	var start_time = Date.now();
 	if (s_sec == 0) {
-		s_min = s_min - 1;
-		s_sec = 59;
+		minutes = s_min - 1;
+		seconds = 59;
 	}
 	else {
-		s_sec = s_sec - 1;
+		seconds = s_sec - 1;
 	}
 	function timer(e) {
 		var diff = ((Date.now() - start_time)/1000) | 0;
-		minutes = s_min  - ((diff/60) | 0);
-		seconds = s_sec - ((diff%60) | 0);
+		minutes = minutes  - ((diff/60) | 0);
+		seconds = seconds - ((diff%60) | 0);
 		display(minutes,seconds);
 	}
 	timer();
@@ -66,10 +66,20 @@ function pause() {
 	display(s_min,s_sec);
 }
 
-function stop() {
+function reset() {
 	play = false;
 	clearInterval(set_timer);
 	s_min = 25;
+	s_sec = 0;
+	display(s_min,s_sec);
+	session.innerText = 25;
+	rest.innerText = 5;
+}
+
+function stop() {
+	play = false;
+	clearInterval(set_timer);
+	s_min = parseInt(session.innerText);
 	s_sec = 0;
 	display(s_min,s_sec);
 }
